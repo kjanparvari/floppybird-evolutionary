@@ -38,7 +38,7 @@ parser.add_argument(
 args = parser.parse_args()
 
 
-class Game():
+class Game:
 
     def __init__(self):  # class initializer
 
@@ -68,7 +68,8 @@ class Game():
         else:
             num_alive = 2 * CONFIG['num_players']
             prev_players = load_generation(checkpoint_path)  # players of the previous generation
-            players = evolution.generate_new_population(CONFIG['num_players'], prev_players)  # players of the current generation
+            players = evolution.generate_new_population(CONFIG['num_players'],
+                                                        prev_players)  # players of the current generation
             gen_num = int(checkpoint_path[checkpoint_path.rfind('/') + 1:]) + 1
             high_score = max(p.fitness for p in prev_players)
 
@@ -205,7 +206,7 @@ class Game():
                             best_player = prev_players[i]
                             break
 
-                    if best_player == None:
+                    if best_player is None:
                         for i in range(len(players)):
                             if delta_xs[i] == 0:
                                 best_player = players[i]
@@ -240,7 +241,8 @@ class Game():
                     self.screen.blit(self.speed_font.render('2x', -1, color), (1200, 20))
 
                 if show_fps:
-                    self.screen.blit(self.speed_font.render(f'{str(1000 // (dt * game_speed))}', -1, color), (1200, 650))
+                    self.screen.blit(self.speed_font.render(f'{str(1000 // (dt * game_speed))}', -1, color),
+                                     (1200, 650))
 
                 pygame.display.update()
 
@@ -266,7 +268,7 @@ class Game():
 
         # game loop
         while True:
-            
+
             events = pygame.event.get()
             keys = pygame.key.get_pressed()
             if keys[pygame.K_ESCAPE]:
@@ -329,11 +331,11 @@ class Game():
             self.screen.blit(self.font.render("Score: " + str(self.camera), -1, color), (25, 60))
             if show_fps:
                 self.screen.blit(self.speed_font.render(f'{str(1000 // dt)}', -1, color), (1200, 650))
-            
+
             pygame.display.update()
 
-
-    def load_images(self, mode):
+    @staticmethod
+    def load_images(mode):
         background = pygame.image.load(f'sprites/back_{mode}.jpg').convert()
         background = pygame.transform.scale(background, (1280, 720))
 
@@ -369,7 +371,7 @@ class Game():
 
 
 if __name__ == '__main__':
-    is_play = True if args.play == 'True' else False 
+    is_play = True if args.play == 'True' else False
     if is_play:
         Game().play(args.mode)
     else:

@@ -4,6 +4,7 @@ import pickle
 from pathlib import Path
 import shutil
 
+
 # save players of this generation in file
 def save_generation(players, gen_num, mode):
     path = Path(join('checkpoint', mode, str(gen_num)))

@@ -1,0 +1,8 @@
+helicopter mode:
+    python game.py --mode helicopter --play True
+
+gravity mode:
+    python game.py --mode gravity --play True
+
+thrust mode:
+    python game.py --mode thrust --play True
