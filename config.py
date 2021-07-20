@@ -6,11 +6,11 @@ CONFIG = {
     'fps': 50,  # frame/second
     'camera_speed': 8,  # speed of camera
     'box_gap': 9,  # relative gap between box lists
-    'max_vel': 15,
+    'max_vel': 10,
 
     # Parameters
     'seed': 0,  # map of the game
     # 150 for num_players
-    'num_players': 150,  # number of players generated in each step
+    'num_players': 200,  # number of players generated in each step
     'checkpoint_freq': 5  # the frequency of saving generations
 }

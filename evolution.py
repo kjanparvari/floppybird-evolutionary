@@ -20,22 +20,36 @@ class Evolution:
         for i, p in enumerate(players):
             p.fitness = delta_xs[i]
 
-    def crossover(self, parent1, parent2):
-        child = Player(self.mode)
+    @staticmethod
+    def crossover(parent1, parent2):
+        child = parent1.copy()
+        child.fitness = (parent1.fitness + parent2.fitness) / 2
         for layer_number in parent1.nn.weights.keys():
             if layer_number % 2 == 0:
-                child.nn.weights[layer_number] = parent1.nn.weights[layer_number].copy()
-                child.nn.biases[layer_number] = parent1.nn.biases[layer_number].copy()
-            else:
+                # child.nn.weights[layer_number] = parent1.nn.weights[layer_number].copy()
+                # child.nn.biases[layer_number] = parent1.nn.biases[layer_number].copy()
+                # else:
                 child.nn.weights[layer_number] = parent2.nn.weights[layer_number].copy()
                 child.nn.biases[layer_number] = parent2.nn.biases[layer_number].copy()
         return child
 
     @staticmethod
     def mutate2(child: Player):
-        mutation_probability = 0.8
+        mutation_probability = .8
         noise_range = .3
-        if random.random() > mutation_probability:
+        # if child.mode == 'helicopter':
+        #     if child.fitness < 1000:
+        #         child.nn.init_weights()
+        #         return
+        #     elif child.fitness < 4000:
+        #         mutation_probability = .8
+        #         noise_range = .3
+        #     else:
+        #         mutation_probability = .7
+        #         noise_range = 0.25
+        # if child.mode == 'thrust':
+        #     noise_range = .5
+        if random.random() < mutation_probability:
             for layer_number in child.nn.weights.keys():
                 child.nn.weights[layer_number] += np.random.normal(0, noise_range, child.nn.weights[layer_number].shape)
                 child.nn.biases[layer_number] += np.random.normal(0, noise_range, child.nn.biases[layer_number].shape)
@@ -82,8 +96,6 @@ class Evolution:
                     new_players.append(parents[i * 2].copy())
             for i in range(num_players):
                 self.mutate2(new_players[i])
-            print(num_players)
-            print(len(new_players))
             return new_players
 
     @staticmethod
@@ -96,4 +108,6 @@ class Evolution:
         with open('records.csv', 'a+', newline='') as _file:
             writer = csv.writer(_file, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
             writer.writerow([players[0].fitness, players[len(players) - 1].fitness, _mean])
+        # if players[0].fitness > 40000:
+        #     CONFIG["seed"] = 1
         return players[: num_players]

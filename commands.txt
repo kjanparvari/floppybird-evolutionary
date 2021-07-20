@@ -6,3 +6,9 @@ gravity mode:
 
 thrust mode:
     python game.py --mode thrust --play True
+
+
+from checkpoint:
+    python game.py --mode helicopter --checkpoint checkpoint/helicopter/20
+    python game.py --mode gravity --checkpoint checkpoint/helicopter/20
+    python game.py --mode thrust --checkpoint checkpoint/helicopter/20
