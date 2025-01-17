@@ -26,4 +26,4 @@ Helicopter             |  Gravity          |  Thrust
 - Many thanks to [Parnian Rad](https://github.com/Parnian-Rad)
 
 ## License  
-This project is licensed under the AUT License.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.  
